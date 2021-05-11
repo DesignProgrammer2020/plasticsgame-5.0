@@ -34,35 +34,28 @@ let yoff = 0.0; // 2nd dimension of perlin noise
 
 function setup() {
   var url = 'https://api.giphy.com/v1/gifs/search?&api_key=nqDlsVpOUw2qbCA0kd9jn43RdX07aU7Q&q=environment';
-  console.log(`url=${url}`);
   loadJSON(url, gotData);
 
   cnv = createCanvas(w, h);
   textFont('monospace');
 
-  console.log(playerJSON.frames[0].frame);
   let playerFrames = playerJSON.frames;
 
   for (let i = 0; i < playerFrames.length; i++) {
-    console.log(playerFrames[i]);
     let pos = playerFrames[i].frame;
     let img = playerSS.get(pos.x, pos.y, pos.w, pos.h);
     playerAnimation.push(img);
-    console.log(playerAnimation);
   }
 
   player = new Player();
   player.display();
 
-
   let trashFrames = trashJSON.frames;
 
   for (let i = 0; i < trashFrames.length; i++) {
-    console.log(trashFrames[i]);
     let pos = trashFrames[i].frame;
     let img = trashSS.get(pos.x, pos.y, pos.w, pos.h);
     trashAnimation.push(img);
-    console.log(trashAnimation);
   }
 
   trash.push(new Trash());
@@ -96,12 +89,8 @@ function draw() {
   }
 }
 
-function drawCreek() {
-  //yellow-green background for grass
-  background(100, 240, 0);
-
+function drawTrees() {
   //add trees to the background
-
   //let trees remain in same position for every game
 
   //tree 1
@@ -150,27 +139,37 @@ function drawCreek() {
   fill(0, 120, 0);
   circle(50, 200, 100);
   pop();
+}
+
+
+function drawCreek() {
+  //yellow-green background for grass
+  background(100, 240, 0);
 
   //brown rectangle for mud
   fill(206, 154, 113);
   rectMode(CENTER);
   rect(width * 0.5, height * 0.8, width, height * 0.4);
 
-  push();
+  drawTrees();
 
+  // console.log(`x=${this.x}`);
+  // console.log(`y=${this.y}`);
+
+  push();
   //transparent cyan waves for water
   fill(170, 295, 330, 80);
   noStroke();
 
   //make the waves move
   //draw a polygon with wave points
-
   beginShape();
 
   let xoff = 0;
 
   // Iterate over horizontal pixels
   for (let x = 0; x <= width; x += 5) {
+
     // Calculate a y value according to noise, map
 
     //2D Noise
@@ -205,10 +204,7 @@ function keyPressed() {
 
 
 function title() {
-
   push();
-  //console.log(`earthDayImage=${earthDayImage}`);
-
   //Happy Earth Day gif
   if (earthDayImage != null) {
     imageMode(CENTER);
@@ -220,12 +216,11 @@ function title() {
 
   textSize(36);
   textAlign(CENTER);
-  text('Collect the Trash', width / 2, height * 0.15);
+  text('Collect the Trash', width / 2, height * 0.18);
 
   textSize(24);
   text('to help keep the creek clean', width / 2, height * 0.85);
   pop();
-
 }
 
 function titleMouseClicked() {
@@ -272,6 +267,7 @@ function level1() {
     }
   }
 
+  push();
   textSize(36);
   fill(0);
   noStroke();
@@ -297,11 +293,14 @@ function youWin() {
   fill(150, 120, 40);
   text('You win!', width / 2, height * 0.3);
   textSize(24);
+  textAlign(CENTER);
   text('Thank you for picking up litter.', width / 2, height * 0.4);
   text('Now click for drawing fun.', width / 2, height * 0.5);
 }
 
 function youWinMouseClicked() {
+  //don't let youWin drawing go beneath beginning image
+  clear();
   state = 'title';
   points = 0;
 }

@@ -9,14 +9,10 @@ class Player {
 
   display(){
     let frameIndex=(int)(frameCount*0.05) % 4;
-    console.log(`frameIndex=${frameIndex}`);
     image(playerAnimation[frameIndex], this.x, this.y, this.r, this.r);
   }
 
   move() {
-    console.log(`this.x = ${this.x}`);
-    console.log(`this.y = ${this.y}`);
-
     switch (this.direction) {
       case 'still':
       //don't move anything
