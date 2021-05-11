@@ -154,10 +154,8 @@ function drawCreek() {
   fill(170, 295, 330, 80);
   noStroke();
 
-  //make the waves move slowly
+  //make the waves move
   //draw a polygon with wave points
-
-  // frameRate(0.5);
 
   beginShape();
 
