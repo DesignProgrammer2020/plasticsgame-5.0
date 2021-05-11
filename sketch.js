@@ -56,12 +56,12 @@ function preload() {
   trashSS = loadImage('assets/bottle.png');
   trashJSON = loadJSON('assets/bottle.json');
 
+  //for level 2: drawingMachine
+  //upload drawing machine animal images
   for (let i = 0; i <= 10; i++) {
     endangered[i] = loadImage(`pictures/endangered_${i}.jpg`);
   }
-
-  //for level 2: drawingMachine
-  //upload newYork font
+  //upload New York Font
   newYork = loadFont('font/NewYork.ttf');
 }
 
@@ -148,6 +148,16 @@ function draw() {
       youWin();
       cnv.mouseClicked(youWinMouseClicked);
       break;
+
+      case 'level 2':
+        level2();
+        cnv.mouseClicked(level2MouseClicked);
+        break;
+
+      case 'thank you':
+        thankYou();
+        cnv.mouseClicked(youWinMouseClicked);
+        break;
 
     default:
       break;
@@ -457,9 +467,9 @@ function level2() {
   drawPixels();
 }
 
-function level1MouseClicked() {}
+function level2MouseClicked() {}
 
-function youWinAgain() {
+function thankYou() {
   background(230, 210, 80);
 
   noStroke();
@@ -476,7 +486,7 @@ function youWinAgain() {
   text('Thank you for repopulating animals', width / 2, height * 0.4);
 }
 
-function youWinAgainMouseClicked() {
+function thankYouMouseClicked() {
   //don't let youWin drawing go beneath beginning image
   clear();
   state = 'title';
