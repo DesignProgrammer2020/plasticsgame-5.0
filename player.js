@@ -2,7 +2,7 @@ class Player {
   constructor(){
     this.r = 60;
     this.x = w/2;
-    this.y = height*0.2;
+    this.y = height*0.5;
     this.speed = 2;
     this.direction = 'still';
   }
@@ -20,7 +20,7 @@ class Player {
 
       case 'up':
       //decrease y position
-      if (this.y > 0){
+      if (this.y > height*0.5){
         this.y-=this.speed;
       }
       break;
