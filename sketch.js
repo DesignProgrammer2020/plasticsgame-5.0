@@ -22,6 +22,31 @@ let playerAnimation = [];
 let trashAnimation = [];
 let earthDayImage = null;
 
+//images of animals
+let array = [];
+let endangered = [];
+
+//butterfly drawings in the beginning
+let butterflies = [];
+let turtles = [];
+
+let button;
+let randomIndex;
+let animating = false;
+let img;
+let imageCounter = 0;
+
+let firstTime = true;
+let final = false;
+
+let strokeWidth = 0;
+let noiseOffset = 0;
+
+let textArray;
+let newYork;
+let currentEndangered;
+
+
 function preload() {
   // //spritesheets
   playerSS = loadImage('assets/collector.png');
