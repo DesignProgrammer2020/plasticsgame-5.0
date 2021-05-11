@@ -6,6 +6,7 @@ class Trash {
   }
 
   display(){
+    //plastic bottle images
     let frameIndex=(int)(frameCount*0.05) % 4;
     image(trashAnimation[frameIndex], this.x, this.y, this.r, this.r);
   }
