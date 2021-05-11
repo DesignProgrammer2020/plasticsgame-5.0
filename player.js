@@ -14,6 +14,8 @@ class Player {
   }
 
   move() {
+    console.log(`this.x = ${this.x}`);
+    console.log(`this.y = ${this.y}`);
 
     switch (this.direction) {
       case 'still':
@@ -22,22 +24,30 @@ class Player {
 
       case 'up':
       //decrease y position
-      this.y-=this.speed;
+      if (this.y > 0){
+        this.y-=this.speed;
+      }
       break;
 
       case 'down':
       //increase y position
-      this.y+=this.speed;
+      if (this.y < height-this.r){
+        this.y+=this.speed;
+      }
       break;
 
       case 'left':
       //decrease x position
-      this.x-=this.speed;
+      if (this.x > 0){
+        this.x-=this.speed;
+      }
       break;
 
       case 'right':
       //increase x position
-      this.x+=this.speed;
+      if (this.x < w-this.r){
+        this.x+=this.speed;
+      }
       break;
 
       default:

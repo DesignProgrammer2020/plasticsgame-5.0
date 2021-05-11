@@ -20,8 +20,7 @@ let playerJSON;
 let trashJSON;
 let playerAnimation = [];
 let trashAnimation = [];
-
-// let frameRate(0.5);
+let earthDayImage = null;
 
 function preload() {
   // //spritesheets
@@ -34,6 +33,10 @@ function preload() {
 let yoff = 0.0; // 2nd dimension of perlin noise
 
 function setup() {
+  var url = 'https://api.giphy.com/v1/gifs/search?&api_key=nqDlsVpOUw2qbCA0kd9jn43RdX07aU7Q&q=environment';
+  console.log(`url=${url}`);
+  loadJSON(url, gotData);
+
   cnv = createCanvas(w, h);
   textFont('monospace');
 
@@ -63,6 +66,11 @@ function setup() {
   }
 
   trash.push(new Trash());
+}
+
+function gotData(giphy) {
+  //for displaying multiple copies of the chosen image
+  earthDayImage = loadImage(giphy.data[3].images.original.url);
 }
 
 function draw() {
@@ -198,15 +206,25 @@ function keyPressed() {
 
 function title() {
 
-  background(0, 150, 0);
-  fill(0);
+  push();
+  //console.log(`earthDayImage=${earthDayImage}`);
+
+  //Happy Earth Day gif
+  if (earthDayImage != null) {
+    imageMode(CENTER);
+    image(earthDayImage, width / 2, height / 2);
+  }
+  //bold gold text to contrast with light blue image
+  fill(200, 175, 0);
+  textStyle(BOLD);
 
   textSize(36);
   textAlign(CENTER);
-  text('Collect the Trash', width / 2, height / 5);
+  text('Collect the Trash', width / 2, height * 0.15);
 
   textSize(24);
-  text('to help keep the creek clean', width / 2, height / 2);
+  text('to help keep the creek clean', width / 2, height * 0.85);
+  pop();
 
 }
 
@@ -253,7 +271,6 @@ function level1() {
       trash.splice(i, 1);
     }
   }
-
 
   textSize(36);
   fill(0);
