@@ -148,13 +148,22 @@ function drawCreek() {
 
   //brown rectangle for mud
   fill(206, 154, 113);
+
+  curveVertex();
+  beginShape();
+  vertex(0, height*0.8);
+  vertex(width*0.2, height*0.75);
+  vertex(width*0.5, height*0.8);
+  vertex(width*0.8, height*0.75);
+  vertex(width, height*0.8);
+  // vertex(width, height);
+  // vertex(0, height);
+  endShape(CLOSE);
+
   rectMode(CENTER);
-  rect(width * 0.5, height * 0.8, width, height * 0.4);
+  rect(width * 0.5, height * 0.9, width, height * 0.2);
 
   drawTrees();
-
-  // console.log(`x=${this.x}`);
-  // console.log(`y=${this.y}`);
 
   push();
   //transparent cyan waves for water
