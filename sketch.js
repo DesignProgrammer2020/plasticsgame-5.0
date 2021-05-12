@@ -64,14 +64,6 @@ function setup() {
   player = new Player();
   player.display();
 
-  let trashFrames = trashJSON.frames;
-
-  for (let i = 0; i < trashFrames.length; i++) {
-    let pos = trashFrames[i].frame;
-    let img = trashSS.get(pos.x, pos.y, pos.w, pos.h);
-    trashAnimation.push(img);
-  }
-
   trash.push(new Trash());
 
 }
