@@ -21,6 +21,9 @@ let trashJSON;
 let playerAnimation = [];
 let trashAnimation = [];
 
+//Earth Day everyday gif (null by default)
+let earthDayImage = null;
+
 function preload() {
   // //spritesheets
   playerSS = loadImage('assets/collector.png');
@@ -74,7 +77,7 @@ function setup() {
 }
 
 function gotData(giphy) {
-  //for displaying multiple copies of the chosen image
+  //for displaying multiple copies of the chosen giphy image
   earthDayImage = loadImage(giphy.data[3].images.original.url);
 }
 
@@ -152,7 +155,6 @@ function drawTrees() {
   pop();
 }
 
-
 function drawCreek() {
   //yellow-green background for grass
   background(100, 240, 0);
@@ -189,9 +191,7 @@ function drawCreek() {
 
   // Iterate over horizontal pixels
   for (let x = 0; x <= width; x += 5) {
-
     // Calculate a y value according to noise, map
-
     //2D Noise
     let y = map(noise(xoff, yoff), 0, 1, height * 0.95, height);
     vertex(x, y);
@@ -222,14 +222,14 @@ function keyPressed() {
   }
 }
 
-
 function title() {
   push();
-  //Happy Earth Day gif
+  //Earth Day everyday gif
   if (earthDayImage != null) {
     imageMode(CENTER);
     image(earthDayImage, width / 2, height / 2);
   }
+
   //bold gold text to contrast with light blue image
   fill(200, 175, 0);
   textStyle(BOLD);
