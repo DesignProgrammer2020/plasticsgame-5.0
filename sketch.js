@@ -35,13 +35,13 @@ function preload() {
 let yoff = 0.0; // 2nd dimension of perlin noise
 
 function setup() {
-  //for level 1: picking up trash
   var url = 'https://api.giphy.com/v1/gifs/search?&api_key=nqDlsVpOUw2qbCA0kd9jn43RdX07aU7Q&q=environment';
   loadJSON(url, gotData);
 
   cnv = createCanvas(w, h);
   textFont('monospace');
 
+  //frames for player sprite
   let playerFrames = playerJSON.frames;
 
   for (let i = 0; i < playerFrames.length; i++) {
@@ -53,6 +53,7 @@ function setup() {
   player = new Player();
   player.display();
 
+  //frames for trash sprite
   let trashFrames = trashJSON.frames;
 
   for (let i = 0; i < trashFrames.length; i++) {
@@ -293,7 +294,6 @@ function youWin() {
   textSize(24);
   textAlign(CENTER);
   text('Thank you for picking up litter.', width / 2, height * 0.4);
-  // text('Now click for drawing fun.', width / 2, height * 0.5);
 }
 
 function youWinMouseClicked() {
