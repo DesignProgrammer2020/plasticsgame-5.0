@@ -20,7 +20,6 @@ let playerJSON;
 let trashJSON;
 let playerAnimation = [];
 let trashAnimation = [];
-let earthDayImage = null;
 
 function preload() {
   // //spritesheets
@@ -28,7 +27,6 @@ function preload() {
   playerJSON = loadJSON('assets/collector.json');
   trashSS = loadImage('assets/bottle.png');
   trashJSON = loadJSON('assets/bottle.json');
-
 }
 
 let yoff = 0.0; // 2nd dimension of perlin noise
@@ -60,6 +58,17 @@ function setup() {
     trashAnimation.push(img);
   }
 
+  player = new Player();
+  player.display();
+
+  let trashFrames = trashJSON.frames;
+
+  for (let i = 0; i < trashFrames.length; i++) {
+    let pos = trashFrames[i].frame;
+    let img = trashSS.get(pos.x, pos.y, pos.w, pos.h);
+    trashAnimation.push(img);
+  }
+
   trash.push(new Trash());
 
 }
@@ -70,8 +79,6 @@ function gotData(giphy) {
 }
 
 function draw() {
-
-  //for level 1: picking up plastic
   switch (state) {
     case 'title':
       title();
@@ -90,73 +97,6 @@ function draw() {
 
     default:
       break;
-  }
-
-  if (firstTime) {
-    drawPixels();
-
-    for (i = 0; i < butterflies.length; i++) {
-      butterflies[i].display();
-      butterflies[i].move();
-    }
-
-    //stylize the text
-    fill(50, 0, 40);
-    noStroke();
-    textArray = newYork.textToPoints('Repopulate endangered animals!', width * 0.15, height * 0.4, 78, {
-      sampleFactor: 0.3
-    });
-
-    for (let i = 0; i < textArray.length; i++) {
-      ellipse(textArray[i].x, textArray[i].y, 2, 2);
-    }
-
-    fill(0);
-    noStroke();
-    textSize(24);
-    text("Drag to trace. Hit 's' to save. Hit 'c' to redraw.", 0.15 * width, 0.6 * height);
-  }
-
-  if (animating == true && endangered.length > 0) {
-    clear();
-    drawPixels();  //multicolored background
-
-    //upload images of endangered species
-    imageCounter +=1
-    imageCounter %= endangered.length;
-    image(endangered[imageCounter], width / 2, height / 2);
-  }
-
-  if (mouseIsPressed) {
-    firstTime = false;
-
-    strokeWeight(strokeWidth);
-    noiseOffset += 0.15;
-    strokeWidth = noise(noiseOffset) * 15;
-
-    stroke(map(mouseY, 0, windowHeight, 0, 255, true));
-
-    array.push([mouseX, mouseY]);
-    drawAnimal();
-  }
-
-  if (final) {    //last frame
-    drawPixels();
-
-    for (i = 0; i < turtles.length; i++) {
-      turtles[i].display();
-      turtles[i].move();
-    }
-
-    fill(0, 0, 150);
-    noStroke();
-    textArray = newYork.textToPoints('Protect endangered animals!', width * 0.15, height * 0.4, 78, {
-      sampleFactor: 0.3
-    });
-
-    for (let i = 0; i < textArray.length; i++) {
-      ellipse(textArray[i].x, textArray[i].y, 2, 2);
-    }
   }
 }
 
@@ -222,11 +162,11 @@ function drawCreek() {
 
   curveVertex();
   beginShape();
-  vertex(0, height*0.8);
-  vertex(width*0.2, height*0.75);
-  vertex(width*0.5, height*0.8);
-  vertex(width*0.8, height*0.75);
-  vertex(width, height*0.8);
+  vertex(0, height * 0.8);
+  vertex(width * 0.2, height * 0.75);
+  vertex(width * 0.5, height * 0.8);
+  vertex(width * 0.8, height * 0.75);
+  vertex(width, height * 0.8);
   // vertex(width, height);
   // vertex(0, height);
   endShape(CLOSE);
@@ -344,10 +284,7 @@ function level1() {
   }
 }
 
-function level1MouseClicked() {
-
-
-}
+function level1MouseClicked() {}
 
 function youWin() {
   background(230, 210, 80);
@@ -364,7 +301,7 @@ function youWin() {
   textSize(24);
   textAlign(CENTER);
   text('Thank you for picking up litter.', width / 2, height * 0.4);
-  text('Now click for drawing fun.', width / 2, height * 0.5);
+  // text('Now click for drawing fun.', width / 2, height * 0.5);
 }
 
 function youWinMouseClicked() {
